@@ -1,4 +1,4 @@
-odoo.define('pos_retail.ProductScreen', function (require) {
+odoo.define('pos_restrict_on_click_product.ProductScreen', function (require) {
     'use strict';
 
     const ProductScreen = require('point_of_sale.ProductScreen')
