@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="custom_order_receipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1" class="float-right"  dir="rtl">
+<!--        t-if=""-->
+        <xpath expr="//t[contains(@t-if,'receipt.company.contact_address')]" position="replace">
+
+<!--            <t t-esc=""/>-->
+<!--                <t t-if="env.pos.config.name">-->
+<!--                    <div><t t-esc="env.pos.config.name" /></div>-->
+<!--                </t>-->
+<!--<t t-if="receipt.cashier">-->
+        </xpath>
+        <xpath expr="//t[contains(@t-if,'receipt.cashier')]" position="replace">
+                                <div>--------------------------------</div>
+
+<!--<t t-if="receipt.cashier">-->
+        </xpath>
+        <xpath expr="//div[hasclass('orderlines')]" position="replace">
+            <table class='receipt-orderlines'>
+                    <colgroup>
+                        <col width='25%'/>
+                        <col width='20%'/>
+                        <col width='15%'/>
+                        <col width='40%'/>
+
+                    </colgroup>
+                    <tr class="receipt-line">
+
+
+
+
+                        <td style="text-align: center">
+                            No
+                        </td>
+                        <td style="text-align: center">
+                            product
+                        </td>
+                        <td style="text-align: center">
+                            qty
+                        </td>
+                        <td style="text-align: center">
+                            price
+                        </td>
+                        <td style="text-align: center">
+                            total
+                        </td>
+                    </tr>
+                    <t t-set="noOfLine" t-value="1"/>
+                    <tr t-foreach='orderlines' t-as='line' t-key="line.id" class="receipt-line">
+                        <td style="text-align: center">
+                            <t t-esc="noOfLine"/>
+                        </td>
+                        <td style="text-align: center">
+
+<!--                             <ProductName product="line.product"/>-->
+                            <t t-esc="line.product.display_name"/>
+                        </td>
+                        <td style="text-align: center">
+                            <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
+                            <t t-if="line.get_unit()['name'] !== 'Units'">
+                                <span> </span>
+                                <t t-esc="line.get_unit()['name']"/>
+                            </t>
+                        </td>
+                        <td style="text-align: center">
+                            <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
+                        </td>
+                        <td style="text-align: center">
+                            <t t-esc="env.pos.format_currency_no_symbol(line.get_price_with_tax())"/>
+                        </td>
+
+                        <t t-set="noOfLine" t-value="noOfLine + 1"/>
+                    </tr>
+                </table>
+            <br/>
+
+        </xpath>
+        <xpath expr="//t[contains(@t-if, '!isTaxIncluded')]" position="replace">
+<!--            <br/>-->
+<!--            <div class="pos-receipt-center-align"></div>-->
+<!--                <br/>-->
+<!--                <div><span t-esc="env.pos.format_currency(receipt.subtotal)" class="pos-receipt-left-align"/>الاجمالي</div>-->
+<!--                <t t-foreach="receipt.tax_details" t-as="tax" t-key="tax.name">-->
+<!--                    <div class="responsive-price">-->
+<!--                        <t t-esc="tax.name" />-->
+<!--                        <span t-esc='env.pos.format_currency_no_symbol(tax.amount)' class="pos-receipt-right-align"/>-->
+<!--                    </div>-->
+<!--                </t>-->
+          <table class="pos-receipt-left-align">
+                <colgroup>
+                    <col width='55%'/>
+                    <col width='45%'/>
+                </colgroup>
+                <tr class="receipt-line">
+<!--                    <td style="text-align: left">-->
+<!--                        total-->
+<!--                    </td>-->
+<!--                    <td style="text-align: center">-->
+<!--                        <t t-esc="env.pos.format_currency(receipt.total_with_tax -receipt.total_tax)"/>-->
+<!--                    </td>-->
+                    <td style="text-align: left">
+                        Subtotal
+                    </td>
+                    <td style="text-align: center">
+                        <t t-esc="env.pos.format_currency(receipt.subtotal+receipt.total_discount)"/>
+                    </td>
+
+<!--                <div>Subtotal<span t-esc="env.pos.format_currency(receipt.subtotal-receipt.total_tax)" class="pos-receipt-right-align"/></div>-->
+
+                </tr>
+                <tr class="receipt-line">
+                    <td style="text-align: left">
+                        discount
+                    </td>
+                    <td style="text-align: center">
+                        <t t-esc="env.pos.format_currency(receipt.total_discount)"/>
+                    </td>
+
+                </tr>
+                <tr class="receipt-line">
+                    <td style="text-align: left">
+                        Total Taxes
+                    </td>
+                    <td style="text-align: center">
+                        <t t-esc="env.pos.format_currency(receipt.total_tax )"/>
+                    </td>
+
+                </tr>
+                <tr class="receipt-line">
+<!--                    <td style="text-align: left">-->
+<!--                        total-->
+<!--                    </td>-->
+<!--                    <td style="text-align: center">-->
+<!--                        <t t-esc="env.pos.format_currency(receipt.total_with_tax -receipt.total_tax)"/>-->
+<!--                    </td>-->
+                    <td style="text-align: left">
+                        Total
+                    </td>
+                    <td style="text-align: center">
+                        <t t-esc="env.pos.format_currency(receipt.subtotal)"/>
+                    </td>
+
+<!--                <div>Subtotal<span t-esc="env.pos.format_currency(receipt.subtotal-receipt.total_tax)" class="pos-receipt-right-align"/></div>-->
+
+                </tr>
+<!--                <tr class="receipt-line">-->
+<!--                    <td  style="text-align: left">-->
+<!--                        Total With Taxes-->
+<!--                    </td>-->
+<!--                    <td  style="text-align: center" >-->
+<!--                        <t t-esc="env.pos.format_currency(receipt.total_with_tax )"/>-->
+<!--                    </td>-->
+
+<!--                </tr>-->
+            </table>
+            <table class='receipt-orderlines' align="center" style="margin-bottom: -110px;" >
+                <tr><img src="/bsas_pos_reciept/static/src/WhatsApp Image 2022-09-11 at 14.17.58.jpeg" width="100" height="100" alt=""/></tr>
+            </table>
+
+
+
+        </xpath>
+        <xpath expr="//t[contains(@t-if, 'isTaxIncluded')]" position="replace"></xpath>
+        <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace"></xpath>
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace"></xpath>
+        <xpath expr="//t[contains(@t-foreach, 'paymentlines')]" position="replace"></xpath>
+        <xpath expr="//div[hasclass('receipt-change')]" position="replace"></xpath>
+<!--        t-if="-->
+        <xpath expr="//t[contains(@t-if, 'receipt.total_discount')]" position="replace"></xpath>
+
+<!--        <xpath expr="//div[hasclass('receipt-change')]" position="replace"></xpath>-->
+        <xpath expr="//div[hasclass('after-footer')]" position="replace"></xpath>
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace"></xpath>
+
+    </t>
+</templates>
+
+
