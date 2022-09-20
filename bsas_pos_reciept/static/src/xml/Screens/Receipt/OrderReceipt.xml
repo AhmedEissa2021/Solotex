@@ -65,13 +65,13 @@
 
     <!--                             <ProductName product="line.product"/>-->
                                 <t t-esc="line.product.display_name"/>
-                                <t t-if="line.get_unit()['name'] !== 'Units'">
+<!--                                 <t t-if="line.get_unit()['name'] !== 'Units'"> -->
 
                             </td>
                             <td style="text-align: center">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
-                                    <span> </span>
-                                    <t t-esc="line.get_unit()['name']"/>
+<!--                                     <span> </span>
+                                    <t t-esc="line.get_unit()['name']"/> -->
                                 </t>
                             </td>
                             <td style="text-align: center">
