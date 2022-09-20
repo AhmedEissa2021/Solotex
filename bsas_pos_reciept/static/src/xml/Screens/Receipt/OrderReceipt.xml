@@ -77,11 +77,11 @@
                                 <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
                             </td>
                             <td style="text-align: center">
-                                <t t-esc="env.pos.format_currency_no_symbol(line.get_price_with_tax())"/>
+                                <t t-esc="env.pos.format_currency_no_symbol(line.price*line.quantity)"/>
                             </td>
                          </t>
                          <t t-else="">
-                           <t t-set="discount" t-value="line.price"/>
+                           <t t-set="discount" t-value="line.price*line.quantity"/>
 <!--                           <td><t t-esc="discount"/></td>-->
 
 
@@ -122,7 +122,7 @@
                         Subtotal
                     </td>
                     <td style="text-align: center">
-                        <t t-esc="env.pos.format_currency(receipt.subtotal+receipt.total_discount - discount)"/>
+                        <t t-esc="env.pos.format_currency(receipt.subtotal+receipt.total_discount - discount-receipt.total_tax)"/>
 <!--                        <t t-esc="discount"/>-->
                     </td>
 
