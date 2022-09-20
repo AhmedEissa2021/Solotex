@@ -70,9 +70,9 @@
                             </td>
                             <td style="text-align: center">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
-                                    <span> </span>
+<!--                                     <span> </span>
                                     <t t-esc="line.get_unit()['name']"/>
-                                </t>
+                                </t> -->
                             </td>
                             <td style="text-align: center">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
@@ -135,7 +135,7 @@
                         discount
                     </td>
                     <td style="text-align: center">
-                        <t t-esc="env.pos.format_currency(receipt.total_discount+discount)"/>
+                        <t t-esc="env.pos.format_currency(-receipt.total_discount+discount)"/>
                     </td>
 
                 </tr>
