@@ -65,10 +65,11 @@
 
     <!--                             <ProductName product="line.product"/>-->
                                 <t t-esc="line.product.display_name"/>
+                                <t t-if="line.get_unit()['name'] !== 'Units'">
+
                             </td>
                             <td style="text-align: center">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
-                                <t t-if="line.get_unit()['name'] !== 'Units'">
                                     <span> </span>
                                     <t t-esc="line.get_unit()['name']"/>
                                 </t>
@@ -134,7 +135,7 @@
                         discount
                     </td>
                     <td style="text-align: center">
-                        <t t-esc="env.pos.format_currency(receipt.total_discount - discount)"/>
+                        <t t-esc="env.pos.format_currency(discount-receipt.total_discount)"/>
                     </td>
 
                 </tr>
