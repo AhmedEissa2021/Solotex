@@ -135,7 +135,7 @@
                         discount
                     </td>
                     <td style="text-align: center">
-                        <t t-esc="env.pos.format_currency(- discount - receipt.total_discount)"/>
+                        <t t-esc="env.pos.format_currency(discount-receipt.total_discount)"/>
                     </td>
 
                 </tr>
