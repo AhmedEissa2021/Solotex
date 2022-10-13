@@ -146,7 +146,7 @@
                 </tr>
                 <tr class="receipt-line">
                     <td style="text-align: left">
-                        Total Taxes
+                        اجمالي الضرائب (14%)
                     </td>
                     <td style="text-align: center">
                         <t t-esc="env.pos.format_currency(receipt.total_tax )"/>
