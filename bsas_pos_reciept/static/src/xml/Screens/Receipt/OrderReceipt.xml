@@ -38,19 +38,19 @@
 
 
                         <td style="text-align: center">
-                            No
+                            مسلسل
                         </td>
                         <td style="text-align: center">
-                            product
+                            المنتج
                         </td>
                         <td style="text-align: center">
-                            qty
+                            الكمية
                         </td>
                         <td style="text-align: center">
-                            price
+                            السعر
                         </td>
                         <td style="text-align: center">
-                            total
+                            الاجمالي
                         </td>
                     </tr>
                     <t t-set="noOfLine" t-value="1"/>
