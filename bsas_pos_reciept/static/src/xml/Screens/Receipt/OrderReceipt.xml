@@ -15,7 +15,7 @@
 <!--<t t-if="receipt.cashier">-->
         </xpath>
         <xpath expr="//t[contains(@t-if,'receipt.company.vat')]" position="replace">
-            <div><t t-esc="receipt.company.vat" />البطاقة الضريبية:</div>
+            <div>البطاقة الضريبية:<t t-esc="receipt.company.vat" /></div>
 
         </xpath>
 
