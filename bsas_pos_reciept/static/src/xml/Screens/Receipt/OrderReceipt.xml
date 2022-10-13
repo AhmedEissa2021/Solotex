@@ -14,6 +14,11 @@
 <!--                </t>-->
 <!--<t t-if="receipt.cashier">-->
         </xpath>
+        <xpath expr="//t[contains(@t-if,'receipt.company.vat')]" position="replace">
+            <div>البطاقة الضريبية:<t t-esc="receipt.company.vat" /></div>
+
+        </xpath>
+
         <xpath expr="//t[contains(@t-if,'receipt.cashier')]" position="replace">
                                 <div>--------------------------------</div>
 
@@ -38,19 +43,19 @@
 
 
                         <td style="text-align: center">
-                            No
+                            مسلسل
                         </td>
                         <td style="text-align: center">
-                            product
+                            المنتج
                         </td>
                         <td style="text-align: center">
-                            qty
+                            الكمية
                         </td>
                         <td style="text-align: center">
-                            price
+                            السعر
                         </td>
                         <td style="text-align: center">
-                            total
+                            الاجمالي
                         </td>
                     </tr>
                     <t t-set="noOfLine" t-value="1"/>
@@ -141,7 +146,7 @@
                 </tr>
                 <tr class="receipt-line">
                     <td style="text-align: left">
-                        Total Taxes
+                        اجمالي الضرائب (14%)
                     </td>
                     <td style="text-align: center">
                         <t t-esc="env.pos.format_currency(receipt.total_tax )"/>
