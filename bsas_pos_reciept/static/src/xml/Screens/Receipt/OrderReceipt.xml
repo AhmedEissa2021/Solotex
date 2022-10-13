@@ -197,7 +197,7 @@
 
 <!--        <xpath expr="//div[hasclass('receipt-change')]" position="replace"></xpath>-->
         <xpath expr="//div[hasclass('after-footer')]" position="replace"></xpath>
-        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace"></xpath>
+<!--         <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace"></xpath> -->
 
     </t>
 </templates>
