@@ -144,8 +144,9 @@
                     </td>
 
                 </tr>
-              <tr class="receipt-line">
                 <t t-foreach="receipt.paymentlines" t-as="line" t-key="line.cid">
+                   <tr class="receipt-line">
+
                     <td style="text-align: left">
                         <t t-esc="line.name" />
                     </td>
@@ -153,8 +154,8 @@
 
                         <span t-esc="env.pos.format_currency_no_symbol(line.amount)" class="pos-receipt-right-align"/>
                    </td>
-                  </t>
-              </tr>
+                  </tr>
+                </t>
                 <tr class="receipt-line">
                     <td style="text-align: left">
                         اجمالي الضرائب (14%)
