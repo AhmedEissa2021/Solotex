@@ -199,7 +199,7 @@
                     </td>
                     <td style="align: right">
 
-                        <span t-esc="env.pos.format_currency_no_symbol(line.amount)" style="margin-left:105px"/>
+                        <span t-esc="env.pos.format_currency_no_symbol(line.amount)" />
                    </td>
                   </tr>
                 </t>
