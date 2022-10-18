@@ -190,7 +190,7 @@
         <xpath expr="//div[hasclass('pos-receipt-right-align')]" position="replace"></xpath>
         <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace"></xpath>
         <xpath expr="//t[contains(@t-foreach, 'paymentlines')]" position="replace">
-            <table class='receipt-orderlines' style="margin-top:-50px" >
+            <table class='receipt-orderlines' style="margin-top:-50px" align="center" >
             <t t-foreach="receipt.paymentlines" t-as="line" t-key="line.cid">
                    <tr class="receipt-line" >
 
