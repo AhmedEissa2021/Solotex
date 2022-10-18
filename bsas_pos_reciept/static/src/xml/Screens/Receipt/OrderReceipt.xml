@@ -194,8 +194,8 @@
             <t t-foreach="receipt.paymentlines" t-as="line" t-key="line.cid">
                    <tr class="receipt-line" >
 
-                    <td style="text-align: right;margin-left:50px;">
-                        <t t-esc="line.name" />
+                    <td >
+                        <t t-esc="line.name" style="text-align: right;margin-left:50px;"/>
                     </td>
                     <td style="align: left">
 
