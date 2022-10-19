@@ -195,7 +195,7 @@
                    <tr class="receipt-line" >
 
                     <td >
-                        <span t-esc="line.name" style="text-align: right;margin-left:50px;"/>
+                        <span t-esc="line.name" style="text-align: right;margin-left:52px;"/>
                     </td>
                     <td style="align: left">
 
