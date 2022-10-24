@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-set="discount" t-value="0"/>
+
+
+    <t t-name="bsas_order_receipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1" class="float-right"  dir="rtl">
+
+<!--        t-if=""-->
+
+
+         <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="after">
+
+                <div><span>Powered by: Business Solution For Advanced Systems</span></div>
+
+
+         </xpath>
+
+    </t>
+</templates>
