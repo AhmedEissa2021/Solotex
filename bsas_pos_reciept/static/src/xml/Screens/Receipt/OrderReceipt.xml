@@ -195,7 +195,7 @@
                    <tr class="receipt-line" >
 
                     <td >
-                        <span t-esc="line.name" style="text-align: right;margin-left:50px;"/>
+                        <span t-esc="line.name" style="text-align: right;margin-left:52px;"/>
                     </td>
                     <td style="align: left">
 
@@ -216,6 +216,13 @@
 <!--        <xpath expr="//div[hasclass('receipt-change')]" position="replace"></xpath>-->
         <xpath expr="//div[hasclass('after-footer')]" position="replace"></xpath>
 <!--         <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace"></xpath> -->
+        <div class="pos-receipt">
+            <div class="pos-receipt-center-align"><span  >Powered by</span></div>
+
+            <div  class="pos-receipt-center-align"><span >Business Solution For Advanced Systems</span></div>
+            <div  class="pos-receipt-center-align"><span >www.bsas-eg.com</span></div>
+            
+        </div>
 
     </t>
 </templates>
