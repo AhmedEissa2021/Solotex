@@ -42,19 +42,19 @@
 
 
 
-                        <td style="text-align: center">
+                        <td style="text-align: center;border: 1px solid #8e0000; ">
                             م
                         </td>
-                        <td style="text-align: center">
+                        <td style="text-align: center;border: 1px solid #8e0000; ">
                             المنتج
                         </td>
-                        <td style="text-align: center">
+                        <td style="text-align: center;border: 1px solid #8e0000; ">
                             الكمية
                         </td>
-                        <td style="text-align: center">
+                        <td style="text-align: center;border: 1px solid #8e0000; ">
                             السعر
                         </td>
-                        <td style="text-align: center">
+                        <td style="text-align: center;border: 1px solid #8e0000; ">
                             الاجمالي
                         </td>
                     </tr>
@@ -66,23 +66,23 @@
                             <td style="text-align: center">
                                 <t t-esc="noOfLine"/>
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center;border: 1px solid #8e0000; ">
 
     <!--                             <ProductName product="line.product"/>-->
                                 <t t-esc="line.product.display_name"/>
 <!--                                 <t t-if="line.get_unit()['name'] !== 'Units'"> -->
 
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center;border: 1px solid #8e0000; ">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.quantity)"/>
 <!--                                     <span> </span>
                                     <t t-esc="line.get_unit()['name']"/>
                                 </t> -->
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center;border: 1px solid #8e0000; ">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.price)"/>
                             </td>
-                            <td style="text-align: center">
+                            <td style="text-align: center;border: 1px solid #8e0000; ">
                                 <t t-esc="env.pos.format_currency_no_symbol(line.price*line.quantity)"/>
                             </td>
                          </t>
