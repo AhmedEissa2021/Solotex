@@ -2,6 +2,19 @@
     <data>
 
 
+        <record id="tree_view_stock_valuation_layer_inherit" model="ir.ui.view">
+            <field name="name">name.stock.valuation.layer.tree.inherit</field>
+            <field name="model">stock.valuation.layer</field>
+            <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='quantity']" position="after">
+                <field name="location_ids" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+
         <!-- Inherit Form View to Modify it -->
         <record id="form_view_stock_valuation_layer_inherit" model="ir.ui.view">
             <field name="name">name.stock.valuation.layer.inherit</field>
@@ -10,7 +23,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='product_id']" position="after">
-                    <field name="location_ids" widget="many2many_tags"/>
+                    <field name="location_ids" widget="many2many_tags" readonly="1" force_save="1"/>
                 </xpath>
 
             </field>
