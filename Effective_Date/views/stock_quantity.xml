@@ -2,6 +2,23 @@
     <data>
 
 
+
+        <record id="tree_view_stock_quant_inherit" model="ir.ui.view">
+            <field name="name">name.stock.quant.tree.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="filter_location_id"/>
+                    <field name="location_ids" widget="many2many_tags" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+
         <record id="tree_view_stock_valuation_layer_inherit" model="ir.ui.view">
             <field name="name">name.stock.valuation.layer.tree.inherit</field>
             <field name="model">stock.valuation.layer</field>
@@ -9,7 +26,7 @@
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='quantity']" position="after">
-                <field name="location_ids" widget="many2many_tags"/>
+                    <field name="filter_location_id"/>
                 </xpath>
 
             </field>
