@@ -8,7 +8,7 @@
     "license" : "OPL-1",
     'depends': ['stock','purchase','purchase_stock','stock_account'],
     'data': [
-        # 'views/stock.xml',
+        'views/stock.xml',
         'views/stock_quantity.xml',
         ],
     'installable': True,

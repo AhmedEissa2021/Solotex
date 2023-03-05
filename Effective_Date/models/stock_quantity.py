@@ -11,6 +11,23 @@ class StockQuantInherit(models.Model):
 
     filter_location_id = fields.Many2one(comodel_name="stock.location", string="Filter Location")
 
+    product_code = fields.Char(string="Product Code",compute='compute_product_code',
+                               inverse="_inverse_product_code",store=True )
+
+
+    @api.depends('product_id')
+    def compute_product_code(self):
+        for rec in self:
+            rec.product_code=''
+            if rec.product_id:
+                rec.product_code=rec.product_id.default_code
+
+    def _inverse_product_code(self):
+        for rec in self:
+            rec.product_code = ''
+            if rec.product_id:
+                rec.product_code = rec.product_id.default_code
+
     @api.depends('product_id')
     def _get_locations(self):
         for rec in self:
@@ -23,16 +40,15 @@ class StockQuantInherit(models.Model):
                 rec.location_ids=location_list
 
     def _inverse_locations(self):
-        for record in self:
-            for rec in self:
-                location_list = rec.location_ids = []
-                if rec.product_id:
-                    stock_quant = self.env['stock.quant'].search(
-                        [('product_id', '=', rec.product_id.id), ('on_hand', '=', True)])
-                    for line in stock_quant:
-                        if line.location_id.usage == 'internal' and line.location_id.id not in location_list:
-                            location_list.append(line.location_id.id)
-                    rec.location_ids = location_list
+        for rec in self:
+            location_list = rec.location_ids = []
+            if rec.product_id:
+                stock_quant = self.env['stock.quant'].search(
+                    [('product_id', '=', rec.product_id.id), ('on_hand', '=', True)])
+                for line in stock_quant:
+                    if line.location_id.usage == 'internal' and line.location_id.id not in location_list:
+                        location_list.append(line.location_id.id)
+                rec.location_ids = location_list
 
 
 
@@ -65,6 +81,22 @@ class StockValuationLayerInherit(models.Model):
                                     compute='_get_locations',inverse="_inverse_locations",store=True )
 
     filter_location_id = fields.Many2one(comodel_name="stock.location", string="Location")
+
+    product_code = fields.Char(string="Product Code", compute='compute_product_code',
+                               inverse="_inverse_product_code", store=True)
+
+    @api.depends('product_id')
+    def compute_product_code(self):
+        for rec in self:
+            rec.product_code = ''
+            if rec.product_id:
+                rec.product_code = rec.product_id.default_code
+
+    def _inverse_product_code(self):
+        for rec in self:
+            rec.product_code = ''
+            if rec.product_id:
+                rec.product_code = rec.product_id.default_code
 
     @api.depends('product_id')
     def _get_locations(self):
