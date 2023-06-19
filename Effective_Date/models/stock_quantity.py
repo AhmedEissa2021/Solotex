@@ -52,38 +52,50 @@ class StockQuantInherit(models.Model):
                         location_list.append(line.location_id.id)
                 rec.location_ids = location_list
 
+    @api.model
+    def create(self, vals):
+        """ Override to handle the "inventory mode" and create a quant as
+        superuser the conditions are met.
+        """
+        if self._is_inventory_mode() and any(
+                f in vals for f in ['inventory_quantity', 'inventory_quantity_auto_apply']):
+            allowed_fields = self._get_inventory_fields_create()
+            allowed_fields.append('product_code')
+            if any(field for field in vals.keys() if field not in allowed_fields):
 
-    def _apply_inventory(self):
-        move_vals = []
-        if not self.user_has_groups('stock.group_stock_manager'):
-            raise UserError(_('Only a stock manager can validate an inventory adjustment.'))
-        for quant in self:
-            # Create and validate a move so that the quant matches its `inventory_quantity`.
-            if float_compare(quant.inventory_diff_quantity, 0, precision_rounding=quant.product_uom_id.rounding) > 0:
-                move_vals.append(
-                    quant._get_inventory_move_values(quant.inventory_diff_quantity,
-                                                     quant.product_id.with_company(quant.company_id).property_stock_inventory,
-                                                     quant.location_id))
+                raise UserError(_("Quant's creation is restricted, you can't do this operation."))
+
+            auto_apply = 'inventory_quantity_auto_apply' in vals
+            inventory_quantity = vals.pop('inventory_quantity_auto_apply', False) or vals.pop(
+                'inventory_quantity', False) or 0
+            # Create an empty quant or write on a similar one.
+            product = self.env['product.product'].browse(vals['product_id'])
+            location = self.env['stock.location'].browse(vals['location_id'])
+            lot_id = self.env['stock.production.lot'].browse(vals.get('lot_id'))
+            package_id = self.env['stock.quant.package'].browse(vals.get('package_id'))
+            owner_id = self.env['res.partner'].browse(vals.get('owner_id'))
+            quant = self._gather(product, location, lot_id=lot_id, package_id=package_id, owner_id=owner_id,
+                                 strict=True)
+            if lot_id:
+                quant = quant.filtered(lambda q: q.lot_id)
+
+            if quant:
+                quant = quant[0].sudo()
             else:
-                move_vals.append(
-                    quant._get_inventory_move_values(-quant.inventory_diff_quantity,
-                                                     quant.location_id,
-                                                     quant.product_id.with_company(quant.company_id).property_stock_inventory,
-                                                     out=True))
-        moves = self.env['stock.move'].with_context(inventory_mode=False).create(move_vals)
-        moves._action_done()
-        self.location_id.write({'last_inventory_date': fields.Date.today()})
-        date_by_location = {loc: loc._get_next_inventory_date() for loc in self.mapped('location_id')}
-        for quant in self:
-            quant.inventory_date = date_by_location[quant.location_id]
-        self.write({'inventory_quantity': 0, 'user_id': False})
-        self.write({'inventory_diff_quantity': 0})
-        if moves and moves.move_line_ids and self.accounting_date:
-            for line in moves.move_line_ids:
-                if line.date:
-                    line.date=self.accounting_date
+                quant = self.sudo().create(vals)
+            if auto_apply:
+                quant.write({'inventory_quantity_auto_apply': inventory_quantity})
+            else:
+                # Set the `inventory_quantity` field to create the necessary move.
+                quant.inventory_quantity = inventory_quantity
+                quant.user_id = vals.get('user_id', self.env.user.id)
+                quant.inventory_date = fields.Date.today()
 
-
+            return quant
+        res = super(StockQuantInherit, self).create(vals)
+        if self._is_inventory_mode():
+            res._check_company()
+        return res
 
 
 class StockQuantityHistoryInherit(models.TransientModel):
